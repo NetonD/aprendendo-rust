@@ -1,5 +1,5 @@
 # Anotações sobre o básico da programaçao em rust
-
+#TODO: acentuar as palavras.
 ## Variáveis e constantes.
 
 Em rust uma `variável` pode ser declarada usando a palavra chave `let` seguida de letras e numeros
@@ -39,4 +39,47 @@ de uma variável a uma constante. Constantes também seguem um padrão de nomenc
 fn main(){
 	const MINHA_CONSTANTE = 3.14;
 } 
+```
+
+## Escopo, blocos etc
+
+### Bloco
+Um bloco pode ser definido dentro de um par de parenteses e por si só representar um escopo.
+
+```rust
+{
+	BLOCO 1
+	{
+		BLOCO 2
+		{
+			BLOCO 3
+		}
+	}
+	{
+		BLOCO 2.1
+	} 
+} 
+```
+
+O escopo de um bloco só é visivel de baixo pra cima, ou seja, o `BLOCO 1` nao tem acesso às variáveis do `BLOCO 2`, `BLOCO 3` nem do `BLOCO 2.1`. Porém, o `BLOCO 3` tem acesso às variavés do `BLOCO 2` e do `BLOCO 1`. Além disso os blocos não tem acesso aos
+escopos dos blocos vizinhos, ex. o `BLOCO 2` nao tem acesso ao `BLOCO 2.1`.
+
+> Um bloco é um escopo e permite `shadowing`.
+
+### Shadowing
+
+Dada essa hierarquia de blocos o shadowing é quando uma variavel de um escopo mais profunto tem a mesma definiçao ( ou nome) que uma variável ja declarada, nesse caso a variavel usada será a do escopo mais profundo e nada acontecerá com a variavel previamente declarada.
+Também ocorre o shadowing quando se redeclara uma variável, seja com `let`, ou `let mut`, a delcaraçao anterior vai ser ignorada.
+
+```rust
+{
+	let b = 15;
+	let mut b = 20; //SHADOWING da variavel b;
+	let a = 10;
+	{
+		let a = 20; //SHADOWING da variavel a
+		print!("{}", a); // vai mostrar 20 
+	}
+}
+
 ```
